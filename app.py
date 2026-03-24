@@ -121,7 +121,11 @@ if archivo:
 
         # Gráfico
         st.subheader("📊 Facturación por producto")
-        st.bar_chart(resultado.set_index("PRODUCTO")["Facturacion"])
+        st.bar_chart(resultado.set_index("CODIGO PRODUCTO")["Facturacion"])
+        
+        # Grafico
+        st.subheader("📊 Facturación por producto")
+        st.bar_chart(resultado.set_index("MATERIAL")["Facturacion"])
 
         # ------------------------------------------------------------------
         # 📥 DESCARGA
