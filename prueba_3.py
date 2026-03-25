@@ -44,9 +44,14 @@ def procesar_df(df):
     df['BASE'] = df['FACTURADO'] * df['PRECIO UNITARIO']
     df['TOTAL'] = df['BASE'] * IGV
     df.loc[df['MONEDA'] == 'USD', 'TOTAL'] *= TIPO_CAMBIO
+    
+    # 🔥 LIMPIEZA DE TIPOS (MUY IMPORTANTE)
+    df["MATERIAL"] = df["MATERIAL"].astype(str)
+    df["PRODUCTO"] = df["PRODUCTO"].astype(str)
+    df["CODIGO PRODUCTO"] = df["CODIGO PRODUCTO"].astype(str)
+    df["CLIENTE"] = df["CLIENTE"].astype(str)
 
     return df
-
 
 # ----------------------------------------------------------------------
 # APP
@@ -179,7 +184,7 @@ if archivo:
         # ------------------------------------------------------------------
         st.subheader("📋 Detalle completo")
 
-        st.dataframe(resultado, use_container_width=True)
+        st.dataframe(resultado, width="stretch")
 
         # ------------------------------------------------------------------
         # 📥 DESCARGA
