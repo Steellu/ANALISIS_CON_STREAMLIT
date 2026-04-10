@@ -78,6 +78,8 @@ if archivo:
         facturacion_clientes = df.groupby("CLIENTE")["TOTAL"].sum().sort_values(ascending=False)
         st.bar_chart(facturacion_clientes.head(350))
         st.dataframe(facturacion_clientes, width="stretch")
+        # 🔽 Preparar para exportación
+        facturacion_clientes_export = facturacion_clientes.reset_index()
 
         # ------------------------------------------------------------------
         # 🔵 GLOBAL: ANÁLISIS POR MATERIAL
@@ -222,9 +224,10 @@ if archivo:
         excel_data = convertir_a_excel(resultado)
         excel_material_cliente = convertir_a_excel(material_cliente_export)
         excel_material_global = convertir_a_excel(material_global_export)
+        excel_facturacion_clientes = convertir_a_excel(facturacion_clientes_export)
 
         # 🔽 Botones (ordenados)
-        col1, col2, col3 = st.columns(3)
+        col1, col2, col3, col4 = st.columns(4)
 
         with col1:
             st.download_button(
@@ -247,6 +250,14 @@ if archivo:
                 label="📥 Material global",
                 data=excel_material_global,
                 file_name="material_global.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            )
+
+        with col4:
+            st.download_button(
+                label="📥 Facturación por cliente",
+                data=excel_facturacion_clientes,
+                file_name=f"facturacion_clientes_{cliente}.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             )
 
