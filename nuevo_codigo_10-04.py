@@ -255,9 +255,9 @@ if archivo:
 
         with col4:
             st.download_button(
-                label="📥 Facturación por cliente",
+                label="📥 Facturación Global",
                 data=excel_facturacion_clientes,
-                file_name=f"facturacion_clientes_{cliente}.xlsx",
+                file_name=f"facturacion_global_por_clientes.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             )
 
