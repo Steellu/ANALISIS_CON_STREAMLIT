@@ -12,7 +12,7 @@ __all__ = (
     "cachedmethod",
 )
 
-__version__ = "7.0.5"
+__version__ = "7.0.6"
 
 import collections
 import collections.abc
@@ -397,7 +397,7 @@ class _TimedCache(Cache):
         def __getattr__(self, name):
             return getattr(self.__timer, name)
 
-    def __init__(self, maxsize, timer=time.monotonic, getsizeof=None):
+    def __init__(self, maxsize, timer, getsizeof=None):
         Cache.__init__(self, maxsize, getsizeof)
         self.__timer = _TimedCache._Timer(timer)
 

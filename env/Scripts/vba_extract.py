@@ -1,4 +1,4 @@
-#!C:\Users\jllue\Desktop\Streamlit\env\Scripts\python.exe
+#!C:\Users\jllue\Documents\ANALISIS DE DATOS\Streamlit\env\Scripts\python.exe
 
 ##############################################################################
 #

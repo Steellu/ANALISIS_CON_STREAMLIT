@@ -53,12 +53,10 @@ def procesar_df(df):
 
     return df
 
-
 # ----------------------------------------------------------------------
 # APP
 # ----------------------------------------------------------------------
 st.set_page_config(page_title="Dashboard de Ventas", layout="wide")
-
 st.title("📊 STEEL J.R.V S.A.C.")
 
 archivo = st.file_uploader("Sube tu Excel de Odoo", type=["xlsx", "xls"])
@@ -190,7 +188,7 @@ if archivo:
         # ------------------------------------------------------------------
         # 📈 EVOLUCIÓN
         # ------------------------------------------------------------------
-        st.subheader("📈 Evolución de ventas por año")
+        st.subheader("📈 Evolución de ventas por año (Cantidad de Productos)")
 
         ventas_anuales = resultado[[2020, 2021, 2022, 2023, 2024, 2025, 2026]].sum()
         st.line_chart(ventas_anuales)
