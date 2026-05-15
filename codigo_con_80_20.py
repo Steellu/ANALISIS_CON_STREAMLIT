@@ -109,6 +109,51 @@ if archivo:
         
         # 🔽 Preparar para exportación
         material_global_export = material_global.reset_index()
+        
+        # ------------------------------------------------------------------
+        # 🔵 PARETO GLOBAL (80/20)
+        # ------------------------------------------------------------------
+        st.subheader("📊 Pareto Global de Productos (80/20)")
+
+        pareto_global = (
+            df.groupby(["CODIGO PRODUCTO","PRODUCTO"])["TOTAL"]
+            .sum()
+            .reset_index()
+            .sort_values(by="TOTAL", ascending=False)
+        )
+
+        # % participación
+        pareto_global["%"] = (
+            pareto_global["TOTAL"] / pareto_global["TOTAL"].sum()
+        ) * 100
+
+        # % acumulado
+        pareto_global["% ACUMULADO"] = pareto_global["%"].cumsum()
+
+        # Solo productos dentro del 80%
+        pareto_80_global = pareto_global[
+            pareto_global["% ACUMULADO"] <= 80
+        ]
+
+        # 📊 Gráfico
+        fig = px.bar(
+            pareto_80_global,
+            x="CODIGO PRODUCTO",
+            y="TOTAL",
+            color="TOTAL",
+            hover_data=["PRODUCTO"],
+            title="Productos que representan el 80% de la facturación global"
+        )
+
+        fig.update_layout(xaxis_tickangle=-45)
+
+        st.plotly_chart(fig, use_container_width=True)
+
+        # 📋 Tabla
+        st.dataframe(
+            pareto_80_global,
+            width="stretch"
+        )
 
         st.divider()
 
@@ -246,6 +291,51 @@ if archivo:
         st.dataframe(material_cliente, width="stretch")
         # 🔽 Preparar para exportación
         material_cliente_export = material_cliente.reset_index()
+        
+        # ------------------------------------------------------------------
+        # 🟢 PARETO CLIENTE (80/20)
+        # ------------------------------------------------------------------
+        st.subheader(f"📊 Pareto de Productos - Cliente: {cliente}")
+
+        pareto_cliente = (
+            df_filtrado.groupby(["CODIGO PRODUCTO","PRODUCTO"])["TOTAL"]
+            .sum()
+            .reset_index()
+            .sort_values(by="TOTAL", ascending=False)
+        )
+
+        # %
+        pareto_cliente["%"] = (
+            pareto_cliente["TOTAL"] / pareto_cliente["TOTAL"].sum()
+        ) * 100
+
+        # % acumulado
+        pareto_cliente["% ACUMULADO"] = pareto_cliente["%"].cumsum()
+
+        # 80%
+        pareto_80_cliente = pareto_cliente[
+            pareto_cliente["% ACUMULADO"] <= 80
+        ]
+
+        # 📊 Gráfico
+        fig = px.bar(
+            pareto_80_cliente,
+            x="CODIGO PRODUCTO",
+            y="TOTAL",
+            color="TOTAL",
+            hover_data=["PRODUCTO"],
+            title=f"Productos que representan el 80% de {cliente}"
+        )
+
+        fig.update_layout(xaxis_tickangle=-45)
+
+        st.plotly_chart(fig, use_container_width=True)
+
+        # 📋 Tabla
+        st.dataframe(
+            pareto_80_cliente,
+            width="stretch"
+        )
 
         # ------------------------------------------------------------------
         # 📈 EVOLUCIÓN
