@@ -1,4 +1,4 @@
-# Este es el ultimo codigo que se ha desarrollado
+# Este es el ultimo codigo que se ha desarrollado 12-06-2026
 import streamlit as st
 import pandas as pd
 from io import BytesIO
@@ -71,7 +71,7 @@ def clasificar_peso(peso):
         return "Medianos"
     elif peso < 100:
         return "Grandes"
-    elif peso < 900:
+    elif peso < 700:
         return "Muy grandes"
     else:
         return "Jumbo"
@@ -94,7 +94,7 @@ if archivo:
         # ------------------------------------------------------------------
         # 🚨 VALIDACIÓN DE DATOS
         # ------------------------------------------------------------------
-        st.subheader("🚨 Cuidado se detecto errores")
+        st.subheader("🚨 Detector de errores")
 
         inconsistencias = (
             df.groupby(["CLIENTE", "PRODUCTO"])
